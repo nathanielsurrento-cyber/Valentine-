@@ -1,0 +1,121 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valentine?</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Arial', sans-serif;
+      background: #ffffff;
+      overflow: hidden;
+      transition: background 0.5s ease;
+    }.container {
+  text-align: center;
+  position: relative;
+}
+
+h1 {
+  font-size: 2.4rem;
+  margin-bottom: 30px;
+}
+
+button {
+  font-size: 1.2rem;
+  padding: 12px 30px;
+  margin: 10px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+  position: relative;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+.yes {
+  background: #ff4d88;
+  color: white;
+}
+
+.no {
+  background: #cccccc;
+  color: #333;
+  position: absolute;
+}
+
+.yay {
+  font-size: 4rem;
+  color: white;
+  font-weight: bold;
+  animation: pop 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes pop {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}
+
+.heart {
+  position: fixed;
+  bottom: -20px;
+  font-size: 24px;
+  animation: floatUp 6s linear infinite;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-110vh); opacity: 0; }
+}
+
+  </style>
+</head>
+<body>
+  <div class="container" id="container">
+    <h1 id="question">Daliso, will you be my Valentine? 💖</h1>
+    <div id="buttons">
+      <button class="yes" onclick="sayYes()">Yes 💕</button>
+      <button class="no" id="noBtn">No 🙄</button>
+    </div>
+  <audio id="loveSong" src="Freudian.m4a" loop></audio>
+</div>  <script>
+    const noBtn = document.getElementById('noBtn');
+
+    noBtn.addEventListener('click', moveNo);
+    noBtn.addEventListener('mouseover', moveNo);
+
+    function moveNo() {
+      const x = Math.random() * (window.innerWidth - 120);
+      const y = Math.random() * (window.innerHeight - 60);
+      noBtn.style.left = x + 'px';
+      noBtn.style.top = y + 'px';
+    }
+
+    function sayYes() {
+      document.body.style.background = '#ff69b4';
+      document.getElementById('container').innerHTML = '<div class="yay">YAYYYYYYYYY 💗</div>';
+      const song = document.getElementById('loveSong');
+      song.volume = 0.6;
+      song.play();
+      startHearts();
+    }
+
+    function startHearts() {
+      setInterval(() => {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.innerText = '💖';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = 4 + Math.random() * 3 + 's';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 7000);
+      }, 300);
+    }
+  </script></body>
+</html>
