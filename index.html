@@ -17,6 +17,8 @@
     }.container {
   text-align: center;
   position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 h1 {
@@ -32,22 +34,21 @@ button {
   border-radius: 30px;
   cursor: pointer;
   transition: transform 0.2s ease, background 0.2s ease;
-  position: relative;
-}
-
-button:hover {
-  transform: scale(1.05);
+  position: absolute;
 }
 
 .yes {
   background: #ff4d88;
   color: white;
+  left: 40%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  position: relative;
 }
 
 .no {
   background: #cccccc;
   color: #333;
-  position: absolute;
 }
 
 .yay {
@@ -79,30 +80,27 @@ button:hover {
 <body>
   <div class="container" id="container">
     <h1 id="question">Daliso, will you be my Valentine? 💖</h1>
-    <div id="buttons">
-      <button class="yes" onclick="sayYes()">Yes 💕</button>
-      <button class="no" id="noBtn">No 🙄</button>
-    </div>
-  <audio id="loveSong" src="Freudian.m4a" loop></audio>
-</div>  <script>
+    <button class="yes" onclick="sayYes()">Yes 💕</button>
+    <button class="no" id="noBtn">No 🙄</button>
+  </div>  <script>
     const noBtn = document.getElementById('noBtn');
-
-    noBtn.addEventListener('click', moveNo);
-    noBtn.addEventListener('mouseover', moveNo);
+    const container = document.getElementById('container');
 
     function moveNo() {
-      const x = Math.random() * (window.innerWidth - 120);
-      const y = Math.random() * (window.innerHeight - 60);
+      const containerWidth = window.innerWidth - noBtn.offsetWidth;
+      const containerHeight = window.innerHeight - noBtn.offsetHeight;
+      const x = Math.random() * containerWidth;
+      const y = Math.random() * containerHeight;
       noBtn.style.left = x + 'px';
       noBtn.style.top = y + 'px';
     }
 
+    // Move No button every click
+    noBtn.addEventListener('click', moveNo);
+
     function sayYes() {
       document.body.style.background = '#ff69b4';
-      document.getElementById('container').innerHTML = '<div class="yay">YAYYYYYYYYY 💗</div>';
-      const song = document.getElementById('loveSong');
-      song.volume = 0.6;
-      song.play();
+      container.innerHTML = '<div class="yay">YAYYYYYYYYY 💗</div>';
       startHearts();
     }
 
@@ -117,5 +115,8 @@ button:hover {
         setTimeout(() => heart.remove(), 7000);
       }, 300);
     }
+
+    // Initially place No button somewhere
+    moveNo();
   </script></body>
 </html>
